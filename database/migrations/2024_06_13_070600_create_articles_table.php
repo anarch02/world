@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('image');
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
             $table->string('slug')->unique();
-            $table->string('title')->unique();
-            $table->text('content');
+            $table->json('title')->unique();
+            $table->json('content');
             $table->date('posting')->nullable();
             $table->boolean('is_active')->default(false);
             $table->timestamps();

@@ -5,23 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations, HasSlug;
 
     protected $fillable = ['slug', 'name'];
 
-    protected static function boot()
+    public array $translatable = ['name'];
+
+    protected $casts = [
+        'name' => 'array',
+    ];
+
+    public function getSlugOptions(): SlugOptions
     {
-        parent::boot();
-
-        static::creating(function (Category $category)
-        {
-            $category->slug = $category->slug ?? str($category->name)->slug();
-        });
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->usingLanguage('en')
+            ->saveSlugsTo('slug');
     }
-
     public function articles(): HasMany
     {
         return $this->hasMany(Article::class);

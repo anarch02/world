@@ -14,6 +14,7 @@ use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\Split;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
@@ -24,6 +25,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ArticleResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = Article::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
@@ -31,6 +34,7 @@ class ArticleResource extends Resource
 
     public static function form(Form $form): Form
     {
+
         return $form
             ->schema([
                 Forms\Components\Section::make('Article header')
@@ -166,6 +170,11 @@ class ArticleResource extends Resource
         ];
     }
 
+
+    public static function getTranslatableLocales(): array
+    {
+        return config('app.available_locales');
+    }
 
     public static function getPages(): array
     {

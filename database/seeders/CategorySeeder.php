@@ -15,19 +15,35 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'travel',
-            'sport',
-            'fashion',
-            'technology',
-            'health',
-            'business',
-            'entertainment',
-            'science',
+            [
+                'en' => 'Travel',
+                'ru' => 'Путешествия',
+            ],
+            [
+                'en' => 'Technology',
+                'ru' => 'Технологии',
+            ],
+            [
+                'en' => 'Food',
+                'ru' => 'Еда',
+            ],
+            [
+                'en' => 'Health',
+                'ru' => 'Здоровье',
+            ],
+            [
+                'en' => 'Science',
+                'ru' => 'Наука',
+            ],
+            [
+                'en' => 'Sport',
+                'ru' => 'Спорт',
+            ]
         ];
 
         foreach ($categories as $category)
         {
-            Category::factory()->create([
+            Category::create([
                 'name' => $category
             ]);
         }

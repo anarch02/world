@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class Article extends Model
 {
-    use HasFactory;
+    use HasFactory, HasTranslations, HasSlug;
 
     protected $fillable = [
         'slug',
@@ -22,14 +25,21 @@ class Article extends Model
         'is_active',
     ];
 
-    protected static function boot()
-    {
-        parent::boot();
+    public array $translatable = ['title', 'content'];
 
-        static::creating(function (Article $article)
-        {
-            $article->slug = $article->slug ?? str($article->title)->slug();
-        });
+    protected $casts = [
+        'title' => 'array',
+        'content' => 'array',
+        'posting' => 'date',
+        'is_active' => 'boolean',
+    ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->usingLanguage('en')
+            ->saveSlugsTo('slug');
     }
 
     public function category(): BelongsTo

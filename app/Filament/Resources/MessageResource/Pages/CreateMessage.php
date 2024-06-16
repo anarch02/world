@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\TagResource\Pages;
+namespace App\Filament\Resources\MessageResource\Pages;
 
-use App\Filament\Resources\TagResource;
+use App\Filament\Resources\MessageResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateTag extends CreateRecord
+class CreateMessage extends CreateRecord
 {
-    protected static string $resource = TagResource::class;
+    protected static string $resource = MessageResource::class;
 
     protected function afterCreate(): void
     {
@@ -17,6 +17,6 @@ class CreateTag extends CreateRecord
             ->title('Tag created')
             ->body('The post has been successfully created.')
             ->success()
-            ->send();
+            ->sendToDatabase(auth()->user());
     }
 }

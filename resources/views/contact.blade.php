@@ -9,7 +9,8 @@
                     <div class="contact-form">
                         <h5>Get in Touch</h5>
                         <!-- Contact Form -->
-                        <form action="#" method="post">
+                        <form action="{{ route('send_message') }}" method="post">
+                            @csrf
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="group">
@@ -29,7 +30,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="group">
-                                        <textarea name="message" id="message" required></textarea>
+                                        <textarea name="text" id="message" required></textarea>
                                         <span class="highlight"></span>
                                         <span class="bar"></span>
                                         <label>Enter your message</label>

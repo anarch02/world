@@ -16,16 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call([
+            AdminSeeder::class,
             CategorySeeder::class,
             ArticleSeeder::class,
             TagSeeder::class,
             CommentSeeder::class,
-        ]);
-
-        User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'world@admin.com',
-            'password' => Hash::make('12345678'),
+            MessageSeeder::class,
         ]);
     }
 }

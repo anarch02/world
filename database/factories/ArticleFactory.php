@@ -24,12 +24,21 @@ class ArticleFactory extends Factory
                 'b16.jpg', 'b17.jpg', 'b18.jpg', 'b19.jpg', 'b20.jpg',
                 'b21.jpg', 'b22.jpg',
             ]);
+        $title = [
+            'en' => $this->faker->sentence(),
+            'ru' => $this->faker->sentence(),
+        ];
+
+        $content = [
+            'en' => $this->faker->paragraphs(3, true),
+            'ru' => $this->faker->paragraphs(3, true),
+        ];
 
         return [
             'image' => $image,
             'category_id' => Category::inRandomOrder()->first()->id,
-            'title' => $this->faker->sentence(),
-            'content' => $this->faker->paragraphs(3, true),
+            'title' => $title,
+            'content' => $content,
             'posting' => $this->faker->date(),
             'is_active' => $this->faker->boolean(),
         ];
