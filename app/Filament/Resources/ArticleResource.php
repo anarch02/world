@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ArticleResource\Pages;
-use App\Filament\Resources\ArticleResource\RelationManagers;
 use App\Models\Article;
 use Filament\Actions\Action;
 use Filament\Forms;
@@ -22,6 +21,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use TangoDevIt\FilamentEmojiPicker\EmojiPickerAction;
 
 class ArticleResource extends Resource
 {
@@ -43,6 +43,7 @@ class ArticleResource extends Resource
                             ->image()
                             ->required(),
                         Forms\Components\TextInput::make('title')
+                            ->suffixAction(EmojiPickerAction::make('emoji-title'))
                             ->required(),
                     ]),
                 Forms\Components\Section::make()
@@ -64,6 +65,7 @@ class ArticleResource extends Resource
                                 'underline',
                                 'undo',
                             ])
+                            ->suffixAction(EmojiPickerAction::make('emoji-title'))
                             ->required()
                             ->columnSpanFull(),
                     ]),
@@ -71,6 +73,8 @@ class ArticleResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('category_id')
                             ->relationship('category', 'name')
+                            ->native(false)
+                            ->searchable()
                             ->required(),
                     ]),
 
